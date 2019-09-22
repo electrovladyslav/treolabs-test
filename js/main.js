@@ -229,7 +229,7 @@ class ProductsList {
   }
 }
 
-const SERVER_URL = `http://demo5782565.mockable.io/`;
+const SERVER_URL = `https://demo5782565.mockable.io/`;
 const LOGIN_PATH = "login";
 
 const loadData = () => {
