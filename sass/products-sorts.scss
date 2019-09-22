@@ -1,0 +1,16 @@
+.products-sorts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 10%;
+}
+
+.products-sorts__price,
+.products-sorts__filter {
+  margin: 10px;
+}
+
+.products-sorts__filter-price {
+  width: 100px;
+}

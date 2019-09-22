@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>TeoLabs shop test</title>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <main class="main">
+      <h1 class="page-title">TeoLabs Shop</h1>
+      <div class="products-sorts">
+        <div class="products-sorts__price">
+          <span class="products-sorts__price-description">Sort by price</span>
+          <button class="products-sorts__price-button products-sorts__price-button--increment">↑</button>
+          <button class="products-sorts__price-button products-sorts__price-button--decrement">↓</button>
+        </div>
+
+        <div class="products-sorts__filter">
+          <span class="products-sort__filter-description">Filter by price. More than</span>
+          <input type="number" class="products-sorts__filter-price  products-sorts__filter-price--low" value="200">
+          <span class="products-sort__filter-description">Less than</span>
+          <input type="number" class="products-sorts__filter-price  products-sorts__filter-price--high" value="700">
+          <button class="products-sorts__filter-button">Filter</button>
+          <button class="products-sorts__filter-reset-button">Reset filters</button>
+
+        </div>
+      </div>
+      <div class="products-list">
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
