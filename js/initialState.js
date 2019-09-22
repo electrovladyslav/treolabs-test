@@ -1,6 +1,8 @@
 const initialState = {
   products: [],
-  productsInCart: [],
+  productsInCart: {
+    // id: quantity
+  },
   visitedProducts: [],
 };
 

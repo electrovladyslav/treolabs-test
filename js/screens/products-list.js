@@ -1,5 +1,6 @@
 class ProductsList {
   constructor(state) {
+    this.state = state;
     this._initialProducts = this._products = state.products;
     this._container = document.querySelector(`.products-list`);
 
@@ -7,6 +8,8 @@ class ProductsList {
     this._sortDown = this._sortDown.bind(this);
     this._filter = this._filter.bind(this);
     this._resetFilters = this._resetFilters.bind(this);
+    this._addToCart = this._addToCart.bind(this);
+    this._removeFromCart = this._removeFromCart.bind(this);
   }
 
   get template() {
@@ -41,28 +44,38 @@ class ProductsList {
     this._container.appendChild(this._domTemplate.content);
 
     this._renderCardList();
-    this._attachHandlers();
   }
 
   _renderCardList() {
     this._cardListContainer = document.querySelector(`.products-list`);
     this._cardListContainer.innerHTML = ``;
-    
+
     const productCards = this._products
       .map((product) => {
+        const amountInCart =
+          this.state.productsInCart[product.id] === void 0
+            ? 0
+            : this.state.productsInCart[product.id];
         const productCard = `
         <div class="product">
           <h2 class="product__title">${product.title}</h2>
           <img class="product__image" src="${product.image}">
           <p class="product__description">${product.description}</p>
           <p class="product__price">Price: \$${product.price}</p>
-          <button class="product__buy">Add to cart</button>
+          <div class="product__cart">
+            <button class="product__cart-btn  product__card-btn--remove" title="Remove this product from cart" data-product-id="${product.id}">-</button>
+            <span class="product__cart-text">
+              In your cart: ${amountInCart}
+            </span>
+            <button class="product__cart-btn  product__card-btn--add" title="Add this product to cart" data-product-id="${product.id}">+</button> 
+          </div>
         </div>
        `;
         return productCard;
       })
       .join(``);
-      this._cardListContainer.innerHTML = productCards;
+    this._cardListContainer.innerHTML = productCards;
+    this._attachHandlers();
   }
 
   _attachHandlers() {
@@ -85,8 +98,43 @@ class ProductsList {
     const filterBtn = document.querySelector(`.products-sorts__filter-button`);
     filterBtn.addEventListener(`click`, this._filter);
 
-    const filterResetBtn = document.querySelector(`.products-sorts__filter-reset-button`);
+    const filterResetBtn = document.querySelector(
+      `.products-sorts__filter-reset-button`
+    );
     filterResetBtn.addEventListener(`click`, this._resetFilters);
+
+    const cartBtnsAdd = document.querySelectorAll(`.product__card-btn--add`);
+    cartBtnsAdd.forEach((cartBtn) =>
+      cartBtn.addEventListener(`click`, this._addToCart)
+    );
+
+    const cartBtnsRemove = document.querySelectorAll(
+      `.product__card-btn--remove`
+    );
+    cartBtnsRemove.forEach((cartBtn) =>
+      cartBtn.addEventListener(`click`, this._removeFromCart)
+    );
+  }
+
+  _addToCart(event) {
+    const productId = event.target.dataset.productId;
+    const currentAmountInCart =
+      this.state.productsInCart[productId] === void 0
+        ? 0
+        : this.state.productsInCart[productId];
+    this.state.productsInCart[productId] = currentAmountInCart + 1;
+    this._renderCardList();
+  }
+
+  _removeFromCart(event) {
+    const productId = event.target.dataset.productId;
+    const currentAmountInCart =
+      this.state.productsInCart[productId] === void 0
+        ? 0
+        : this.state.productsInCart[productId];
+    this.state.productsInCart[productId] =
+      currentAmountInCart - 1 < 0 ? 0 : currentAmountInCart - 1;
+    this._renderCardList();
   }
 
   _sortUp() {
@@ -111,8 +159,8 @@ class ProductsList {
   }
 
   _resetFilters() {
-    this._filterPriceLowInput.value = '';
-    this._filterPriceHighInput.value = '';
+    this._filterPriceLowInput.value = "";
+    this._filterPriceHighInput.value = "";
     this._filter();
   }
 }
