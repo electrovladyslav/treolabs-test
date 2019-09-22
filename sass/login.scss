@@ -1,0 +1,23 @@
+.login {
+  width: 500px;
+  margin: 20px auto;
+}
+
+.login__title {
+  text-align: center;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__label {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.login__input {
+  flex-grow: 1;
+  margin-left: 10px;
+}
