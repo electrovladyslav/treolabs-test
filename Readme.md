@@ -1,6 +1,6 @@
 # Test task for TreoLabs
 
-<!-- Project published on [gh-pages](https://electrovladyslav.github.io/plastic-jam-test/). -->
+Project published on [gh-pages](https://electrovladyslav.github.io/treolabs-test).
 
 Used technologies:
 
